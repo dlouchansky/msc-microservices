@@ -10,9 +10,9 @@ import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 
 @SpringBootApplication
 @EnableCircuitBreaker
-public class InvoiceApplication {
+public class DefaultApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(InvoiceApplication.class, args);
+        SpringApplication.run(DefaultApplication.class, args);
     }
 }

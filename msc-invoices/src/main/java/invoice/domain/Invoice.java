@@ -8,34 +8,88 @@ import java.util.List;
  */
 public class Invoice {
 
-    private final Long id;
-    private final String number;
-    private final Integer status;
-    private final Integer type;
-    private final Long templateId;
-    private final Long issuer;
-    private final Long payer;
-    private final List<InvoiceRow> invoiceRows;
-    private final Integer tax;
-    private final Date createDate;
-    private final Long creator;
+    private Long id;
+    private String number;
+    private InvoiceStatus status;
+    private InvoiceType type;
+    private InvoicePeriod period;
+    private Long templateId;
+    private Long issuer;
+    private Long payer;
+    private List<InvoiceRow> invoiceRows;
+    private Integer tax;
+    private Date createDate;
+    private Long creator;
+    private InvoiceCompany issuerCompany;
+    private InvoiceCompany payerCompany;
 
-    public Invoice(Long id, String number, Integer status, Integer type, Long templateId, Long issuer, Long payer, List<InvoiceRow> invoiceRows, Integer tax, Date createDate, Long creator, List<InvoiceCompany> companies) {
-        this.id = id;
-        this.number = number;
-        this.status = status;
-        this.type = type;
-        this.templateId = templateId;
-        this.issuer = issuer;
-        this.payer = payer;
-        this.invoiceRows = invoiceRows;
-        this.tax = tax;
-        this.createDate = createDate;
-        this.creator = creator;
-        this.companies = companies;
+    public InvoicePeriod getPeriod() {
+        return period;
     }
 
-    private final List<InvoiceCompany> companies;
+    public InvoiceCompany getIssuerCompany() {
+        return issuerCompany;
+    }
+
+    public InvoiceCompany getPayerCompany() {
+        return payerCompany;
+    }
+
+    public void setIssuerCompany(InvoiceCompany issuerCompany) {
+        this.issuerCompany = issuerCompany;
+    }
+
+    public void setPayerCompany(InvoiceCompany payerCompany) {
+        this.payerCompany = payerCompany;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public void setStatus(InvoiceStatus status) {
+        this.status = status;
+    }
+
+    public void setType(InvoiceType type) {
+        this.type = type;
+    }
+
+    public void setPeriod(InvoicePeriod period) {
+        this.period = period;
+    }
+
+    public void setTemplateId(Long templateId) {
+        this.templateId = templateId;
+    }
+
+    public void setIssuer(Long issuer) {
+        this.issuer = issuer;
+    }
+
+    public void setPayer(Long payer) {
+        this.payer = payer;
+    }
+
+    public void setInvoiceRows(List<InvoiceRow> invoiceRows) {
+        this.invoiceRows = invoiceRows;
+    }
+
+    public void setTax(Integer tax) {
+        this.tax = tax;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public void setCreator(Long creator) {
+        this.creator = creator;
+    }
 
     public Long getId() {
         return id;
@@ -45,11 +99,11 @@ public class Invoice {
         return number;
     }
 
-    public Integer getStatus() {
+    public InvoiceStatus getStatus() {
         return status;
     }
 
-    public Integer getType() {
+    public InvoiceType getType() {
         return type;
     }
 
@@ -79,9 +133,5 @@ public class Invoice {
 
     public Long getCreator() {
         return creator;
-    }
-
-    public List<InvoiceCompany> getCompanies() {
-        return companies;
     }
 }
