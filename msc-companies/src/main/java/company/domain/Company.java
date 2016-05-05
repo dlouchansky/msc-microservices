@@ -1,5 +1,6 @@
 package company.domain;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,15 +15,14 @@ public class Company {
     private String email;
     private Integer vatNumber;
     private Map<Company, Integer> clientDiscounts;
+    private Map<StatType, List<CompanyStat>> companyStats = new HashMap<>();
 
-    private List<CompanyStat> companyStats;
-
-    public List<CompanyStat> getCompanyStats() {
-        return companyStats;
+    public List<CompanyStat> getCompanyStats(StatType statType) {
+        return companyStats.get(statType);
     }
 
-    public void setCompanyStats(List<CompanyStat> companyStats) {
-        this.companyStats = companyStats;
+    public void setCompanyStats(StatType statType, List<CompanyStat> companyStats) {
+        this.companyStats.put(statType, companyStats);
     }
 
     public Long getId() {
