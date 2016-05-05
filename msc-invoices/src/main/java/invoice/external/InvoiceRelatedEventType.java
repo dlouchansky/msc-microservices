@@ -5,10 +5,10 @@ package invoice.external;
  */
 public enum InvoiceRelatedEventType {
 
-
     CREATED(1),
-    UPDATED(2);
-
+    UPDATED(2),
+    PAID(3),
+    UNPAID(4);
 
     private Integer id;
 

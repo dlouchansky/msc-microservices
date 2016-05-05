@@ -1,11 +1,15 @@
 package invoice.service;
 
 import invoice.domain.Invoice;
-import invoice.external.CompanyResource;
+import invoice.domain.InvoiceRepository;
+import invoice.external.CompanyService;
 import invoice.external.InvoiceRelatedEvent;
 import invoice.external.InvoiceRelatedEventType;
 import invoice.external.QueueProducer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Range;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -22,39 +26,42 @@ public class InvoiceService {
     private QueueProducer queueProducer;
 
     @Autowired
-    private CompanyResource companyResource;
+    private CompanyService companyService;
+
+    @Autowired
+    private InvoiceRepository invoiceRepository;
 
     public void create(Invoice invoice) {
-        // todo save invoice in db
-
-        queueProducer.sendNewTask(new InvoiceRelatedEvent(InvoiceRelatedEventType.CREATED, invoice));
+        Invoice inserted = invoiceRepository.insert(invoice);
+        queueProducer.sendNewTask(new InvoiceRelatedEvent(InvoiceRelatedEventType.CREATED, inserted));
     }
 
-    public Invoice get(Long invoiceId) {
-        // todo fetch invoice
-
-        return null;
+    public Invoice get(String invoiceId) {
+        return invoiceRepository.findOne(invoiceId);
     }
 
-    public Invoice getWithCompanies(Long invoiceId) {
+    public Invoice getWithCompanies(String invoiceId) {
+        Invoice invoice = invoiceRepository.findOne(invoiceId);
 
-        Invoice invoice = new Invoice(); // todo fetch invoice
-
-        invoice.setIssuerCompany(companyResource.getCompanyData(invoice.getIssuer()));
-        invoice.setPayerCompany(companyResource.getCompanyData(invoice.getPayer()));
+        invoice.setIssuerCompany(companyService.getCompanyData(invoice.getIssuer()));
+        invoice.setPayerCompany(companyService.getCompanyData(invoice.getPayer()));
 
         return invoice;
     }
 
-    public List<Invoice> getList(Long companyId, Long limit, Long from, Long order, Date startDate, Date endDate) {
-        // todo fetch invoices
-        return null;
+    public List<Invoice> getList(Long companyId, Long limit, Long from, Date startDate, Date endDate) {
+        if (startDate == null || endDate == null) {
+            Sort sortByDate = new Sort(Sort.Direction.ASC, "date");
+            PageRequest getPage = new PageRequest((int)(from / limit), limit.intValue());
+            return invoiceRepository.findByIssuer(companyId, sortByDate, getPage);
+        } else {
+            return invoiceRepository.findByIssuerCreateDate(companyId, new Range<Date>(startDate, endDate));
+        }
     }
 
     public void edit(Invoice invoice) {
-        // todo save invoice in db
-
-        queueProducer.sendNewTask(new InvoiceRelatedEvent(InvoiceRelatedEventType.UPDATED, invoice));
+        Invoice updated = invoiceRepository.save(invoice);
+        queueProducer.sendNewTask(new InvoiceRelatedEvent(InvoiceRelatedEventType.UPDATED, updated));
     }
 
 }

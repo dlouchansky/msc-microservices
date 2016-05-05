@@ -1,7 +1,7 @@
-package invoice.domain;
+package mailqueue.domain;
 
 /**
- * Created by bekas on 04/05/16.
+ * Created by bekas on 05/05/16.
  */
 public enum InvoicePeriod {
     NONE(0),

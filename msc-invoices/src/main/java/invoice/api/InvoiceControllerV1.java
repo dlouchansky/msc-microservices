@@ -40,12 +40,12 @@ public class InvoiceControllerV1 {
     }
 
     @RequestMapping(path = "/invoice/{invoiceId}", method = RequestMethod.GET)
-    public Invoice getInvoice(@PathVariable(value = "invoiceId") Long invoiceId) {
+    public Invoice getInvoice(@PathVariable(value = "invoiceId") String invoiceId) {
         return invoiceService.get(invoiceId);
     }
 
-    @RequestMapping(path = "/invoiceWithCompanies/{invoiceId}", method = RequestMethod.GET)
-    public Invoice getInvoiceWithCompanies(@PathVariable(value = "invoiceId") Long invoiceId) {
+    @RequestMapping(path = "/invoice/{invoiceId}/companies", method = RequestMethod.GET)
+    public Invoice getInvoiceWithCompanies(@PathVariable(value = "invoiceId") String invoiceId) {
         return invoiceService.getWithCompanies(invoiceId);
     }
 
@@ -53,11 +53,10 @@ public class InvoiceControllerV1 {
     public List<Invoice> getInvoice(@PathVariable(value = "companyId") Long companyId,
                                     @RequestParam(value = "limit", defaultValue = "20") Long limit,
                                     @RequestParam(value = "from", defaultValue = "0") Long from,
-                                    @RequestParam(value = "order", defaultValue = "1") Long order,
-                                    @RequestParam(value = "startDate", defaultValue = "1") Date startDate,
-                                    @RequestParam(value = "endDate", defaultValue = "1") Date endDate
+                                    @RequestParam(value = "startDate", required = false) Date startDate,
+                                    @RequestParam(value = "endDate", required = false) Date endDate
     ) {
-        return invoiceService.getList(companyId, limit, from, order, startDate, endDate);
+        return invoiceService.getList(companyId, limit, from, startDate, endDate);
     }
 
 

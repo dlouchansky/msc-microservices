@@ -1,5 +1,7 @@
 package invoice.domain;
 
+import org.springframework.data.annotation.Id;
+
 import java.util.Date;
 import java.util.List;
 
@@ -8,10 +10,10 @@ import java.util.List;
  */
 public class Invoice {
 
-    private Long id;
+    @Id
+    private String id;
     private String number;
     private InvoiceStatus status;
-    private InvoiceType type;
     private InvoicePeriod period;
     private Long templateId;
     private Long issuer;
@@ -22,6 +24,9 @@ public class Invoice {
     private Long creator;
     private InvoiceCompany issuerCompany;
     private InvoiceCompany payerCompany;
+
+    public Invoice() {
+    }
 
     public InvoicePeriod getPeriod() {
         return period;
@@ -43,7 +48,7 @@ public class Invoice {
         this.payerCompany = payerCompany;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -55,9 +60,6 @@ public class Invoice {
         this.status = status;
     }
 
-    public void setType(InvoiceType type) {
-        this.type = type;
-    }
 
     public void setPeriod(InvoicePeriod period) {
         this.period = period;
@@ -91,7 +93,7 @@ public class Invoice {
         this.creator = creator;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -101,10 +103,6 @@ public class Invoice {
 
     public InvoiceStatus getStatus() {
         return status;
-    }
-
-    public InvoiceType getType() {
-        return type;
     }
 
     public Long getTemplateId() {
@@ -134,4 +132,25 @@ public class Invoice {
     public Long getCreator() {
         return creator;
     }
+
+    @Override
+    public String toString() {
+        return "Invoice{" +
+                "internalId='" + '\'' +
+                ", id=" + id +
+                ", number='" + number + '\'' +
+                ", status=" + status +
+                ", period=" + period +
+                ", templateId=" + templateId +
+                ", issuer=" + issuer +
+                ", payer=" + payer +
+                ", invoiceRows=" + invoiceRows +
+                ", tax=" + tax +
+                ", createDate=" + createDate +
+                ", creator=" + creator +
+                ", issuerCompany=" + issuerCompany +
+                ", payerCompany=" + payerCompany +
+                '}';
+    }
+
 }

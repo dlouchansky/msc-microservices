@@ -7,7 +7,8 @@ public enum InvoiceStatus {
 
     UNPAID(1),
     PAID(2),
-    DELETED(3);
+    DELETED(3),
+    PERIODIC(4);
 
 
     private Integer id;
