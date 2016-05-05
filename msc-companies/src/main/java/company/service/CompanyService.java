@@ -15,7 +15,6 @@ import java.util.Map;
 @Service
 public class CompanyService {
 
-
     public void create(Company company) {
         // todo create company
         // todo post event for monitoring
@@ -29,11 +28,6 @@ public class CompanyService {
     public void edit(Company company) {
         // todo edit company
         // todo post event for monitoring
-    }
-
-    public Map<Company, Integer> getClients(Long companyId) {
-        Company company = null; // todo get company
-        return company.getClientDiscounts();
     }
 
     public List<Company> getCompaniesByIds(String companyIds) {

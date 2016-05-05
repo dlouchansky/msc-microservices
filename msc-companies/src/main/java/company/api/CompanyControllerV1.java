@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping({"/v1", "/"})
@@ -44,12 +43,6 @@ public class CompanyControllerV1 {
         return companyService.get(companyId);
     }
 
-
-    @RequestMapping(path = "/company/{companyId}/clients", method = RequestMethod.GET)
-    public Map<Company, Integer> getCompanyClients(@PathVariable(value = "companyId") Long companyId) {
-        return companyService.getClients(companyId);
-    }
-
     @RequestMapping(path = "/companies/{companyIds}", method = RequestMethod.GET)
     public List<Company> getCompanies(@PathVariable(value = "companyIds") String companyIds
     ) {
@@ -57,14 +50,12 @@ public class CompanyControllerV1 {
         return companyService.getCompaniesByIds(companyIds);
     }
 
-
     @RequestMapping(path = "/companies/{companyIds}/stats", method = RequestMethod.GET)
     public List<Company> getCompaniesWithStats(@PathVariable(value = "companyIds") String companyIds
     ) {
 
         return companyService.getCompaniesByIdsWithStats(companyIds);
     }
-
 
     @ExceptionHandler(Exception.class)
     @ResponseBody
