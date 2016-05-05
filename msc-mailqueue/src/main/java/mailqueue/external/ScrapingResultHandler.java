@@ -1,4 +1,4 @@
-package api;
+package mailqueue.external;
 
 import org.springframework.stereotype.Component;
 

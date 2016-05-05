@@ -1,4 +1,4 @@
-package config;
+package mailqueue.config;
 
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;

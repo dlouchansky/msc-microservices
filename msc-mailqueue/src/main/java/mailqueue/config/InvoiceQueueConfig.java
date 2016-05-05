@@ -1,6 +1,6 @@
-package config;
+package mailqueue.config;
 
-import api.ScrapingResultHandler;
+import mailqueue.external.ScrapingResultHandler;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;

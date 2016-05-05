@@ -1,8 +1,7 @@
-package api;
+package mailqueue.external;
 
-import config.CommonQueueConfig;
+import mailqueue.config.CommonQueueConfig;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 /**
  * Created by bekas on 04/05/16.
