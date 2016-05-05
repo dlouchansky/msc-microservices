@@ -1,10 +1,11 @@
 package company.external;
 
+import company.config.StatsServiceConfig;
 import company.domain.CompanyStat;
 import company.domain.StatPeriod;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.net.URI;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +18,8 @@ import java.util.Map;
 @Component
 public class StatsResource {
 
-    URI statsServiceUrl = URI.create("http://localhost:8090/");
+    @Autowired
+    private StatsServiceConfig statsServiceConfig;
 
     //@HystrixCommand(fallbackMethod = "statsServiceOffline")
     public Map<Long, CompanyStat> getUnpaidStats(List<Long> companyIds) {
