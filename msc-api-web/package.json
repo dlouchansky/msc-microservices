@@ -1,0 +1,16 @@
+{
+    "name": "msc-api-web",
+    "version": "0.0.1",
+    "description": "msc api web",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "restify": "2.6.0",
+        "async": "~1.0.0"
+    },
+    "devDependencies": {
+        "grunt": "^0.4.5"
+    }
+}
