@@ -1,6 +1,7 @@
+# instalēšanas laiks – ap 15 minūtēm
 vagrant init
 vagrant up
-# instalēšanas laiks – ap 15 minūtēm
+
 # Adding box 'ubuntu/trusty64' (v20160512.0.0) for provider: virtualbox
 # Setting the name of the VM: vagrant-msc_default_1463430394574_3432
 # Forwarding ports...
@@ -16,48 +17,10 @@ vagrant up
 # /vagrant => /Users/bekas/vagrant-msc
 # Running provisioner: docker...
 # Installing Docker onto machine...
+
+# LOGIN:
 vagrant ssh
-exit
+
+# EXIT:
+CTRL+D
 vagrant suspend
-
-
-# install kubernetes in vagrant
-# http://kubernetes.io/docs/getting-started-guides/docker/
-# get latest stable kubernetes version
-export K8S_VERSION=$(curl -sS https://storage.googleapis.com/kubernetes-release/release/stable.txt)
-# download and run kubernetes cluster
-export ARCH=amd64
-docker run -d \
-    --volume=/:/rootfs:ro \
-    --volume=/sys:/sys:ro \
-    --volume=/var/lib/docker/:/var/lib/docker:rw \
-    --volume=/var/lib/kubelet/:/var/lib/kubelet:rw \
-    --volume=/var/run:/var/run:rw \
-    --net=host \
-    --pid=host \
-    --privileged \
-    gcr.io/google_containers/hyperkube-${ARCH}:${K8S_VERSION} \
-    /hyperkube kubelet \
-        --containerized \
-        --hostname-override=127.0.0.1 \
-        --api-servers=http://localhost:8080 \
-        --config=/etc/kubernetes/manifests \
-        --cluster-dns=10.0.0.10 \
-        --cluster-domain=cluster.local \
-        --allow-privileged --v=2
-
-# download kubectl, admin rights needed to write to /usr/bin
-su root
-# enter password vagrant
-sudo curl -sSL "http://storage.googleapis.com/kubernetes-release/release/v1.2.4/bin/linux/386/kubectl" > /usr/bin/kubectl
-chmod +x /usr/bin/kubectl
-
-
-# run example image in pod
-kubectl run nginx --image=nginx --port=80
-# make it available publicly
-kubectl expose deployment nginx --port=80
-# request nginx page
-curl $(kubectl get svc nginx --template={{.spec.clusterIP}})
-# remove pod
-kubectl delete deployment nginx
