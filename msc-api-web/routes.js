@@ -1,13 +1,20 @@
 var async = require('async');
-var config = require('config');
-
+var config = require('./config');
+var cache = require('express-redis-cache')({
+  host: config.redisHost, port: config.redisPort, expire: config.redisExpirationSeconds
+});
 
 var responseType = {'Content-Type': 'application/json; charset=utf-8'};
 module.exports = {
     invoices: {
         get: function (req, res, next) {
             console.log(req.params);
-            return next();
+            var companyId = parseInt(req.params.id);
+            config.invoiceService.get('invoices/' + companyId + "?startDate=" + req.params.startDate + "&endDate=" + req.params.endDate, function (err, serviceRequest, serviceResponse, obj) {
+                res.writeHead(200, responseType);
+                res.write(serviceResponse);
+                return next();
+            });
         }
     },
     invoice: {
@@ -70,8 +77,28 @@ module.exports = {
     },
     dashboard: {
         get: function (req, res, next) {
-            console.log(req.params);
-            return next();
+            cache.get('dashboard', function (error, entries) {
+              if (error) {
+                cache.add('dashboard', JSON.stringify({cache: "ok"}), {type: 'json'}, function (error, added) {
+                  if (error) {
+                    res.send({
+                      cache: "not available, not saved"
+                    });
+                  } else {
+                    res.send({
+                      cache: "saved"
+                    });
+                  }
+                  return next();
+                });
+              } else {
+                res.send({
+                  hello: "ok",
+                  requestParams: req.params,
+                });
+                return next();
+              }
+            });
         }
     }
 };
@@ -103,7 +130,3 @@ module.exports = {
 //        });
 //    });
 //});
-
-
-
-

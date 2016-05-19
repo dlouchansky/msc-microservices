@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: msc-api-web-controller
+spec:
+  replicas: 2
+  # selector identifies the set of Pods that this
+  # replication controller is responsible for managing
+  selector:
+    name: msc-api-web-pod
+  # podTemplate defines the 'cookie cutter' used for creating
+  # new pods when necessary
+  template:
+    metadata:
+      name: msc-api-web-pod
+      labels:
+        # Important: these labels need to match the selector above
+        # The api server enforces this constraint.
+        name: msc-api-web-pod
+    spec:
+      containers:
+        - name: msc-api-web
+          image: dlouchansky/msc-api-web
+          env:
+            -
+              name: "STATS_SERVICE_ADDRESS"
+              value: "stats-service"
+            -
+              name: "COMPANY_SERVICE_ADDRESS"
+              value: "company-service"
+            -
+              name: "USER_SERVICE_ADDRESS"
+              value: "user-service"
+            -
+              name: "AUTH_SERVICE_ADDRESS"
+              value: "auth-service"
+            -
+              name: "DOCUMENT_SERVICE_ADDRESS"
+              value: "document-service"
+            -
+              name: "SERVICE_PORT"
+              value: "8008"
+            -
+              name: "REDIS_HOST"
+              value: "redis-service"
+            -
+              name: "REDIS_PORT"
+              value: "6379"
+            -
+              name: "REDIS_EXPIRE_SEC"
+              value: "60"
+          resources:
+            limits:
+              cpu: 300m
+              memory: 200Mi
+            requests:
+              cpu: 200m
+              memory: 100Mi
+          ports:
+            - containerPort: 8008

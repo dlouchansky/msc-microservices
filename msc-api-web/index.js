@@ -1,7 +1,8 @@
 'use strict';
 
 var restify = require('restify');
-var routes = require('routes');
+var routes = require('./routes');
+var config = require('./config');
 
 // Server
 var server = restify.createServer({
@@ -16,7 +17,7 @@ server.use(restify.bodyParser());
 server.get('/dashboard', routes.dashboard.get);
 
 server.get('/invoice/:id', routes.invoice.get);
-server.get('/invoices', routes.invoices.get);
+server.get('/invoices/:id', routes.invoices.get);
 server.post('/invoice/:id/edit', routes.invoice.edit);
 server.put('/invoice', routes.invoice.create);
 
@@ -29,6 +30,6 @@ server.post('/user/:id/edit', routes.user.edit);
 server.put('/user', routes.user.create);
 server.post('/login', routes.user.login);
 
-server.listen(80, function () {
+server.listen(config.portToListen, function () {
     console.log('%s listening at %s', server.name, server.url);
 });
