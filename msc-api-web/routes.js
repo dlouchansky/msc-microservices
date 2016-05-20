@@ -49,16 +49,24 @@ module.exports = {
     company: {
         get: function (req, res, next) {
             var reqId = idGenerator.generate();
-            logger.debug('user create');
+            logger.debug('company get');
             logger.debug(req.params);
             var companyId = parseInt(req.params.id);
-            res.writeHead(200, responseType);
-            res.end(JSON.stringify(companyId));
-            return next();
+
+            config.companyService.get('company/' + companyId, function (err, serviceRequest, serviceResponse, obj) {
+                if (err) {
+                  logger error("error on get company");
+                  logger.error(error);
+                }
+
+                res.writeHead(200, responseType);
+                res.write(serviceResponse);
+                return next();
+            });
         },
         edit: function (req, res, next) {
             var reqId = idGenerator.generate();
-            logger.debug('user edit');
+            logger.debug('company edit');
             logger.debug(req.params);
             var companyId = parseInt(req.params.id);
             res.writeHead(200, responseType);
