@@ -3,9 +3,6 @@ FROM node:slim
 RUN mkdir -p /usr/src/msc-api-web
 WORKDIR /usr/src/msc-api-web
 
-COPY package.json /usr/src/msc-api-web
-RUN npm install
-
 COPY . /usr/src/msc-api-web
 
 CMD ["npm", "start"]

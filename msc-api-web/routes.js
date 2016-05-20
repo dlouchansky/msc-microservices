@@ -1,32 +1,44 @@
 var async = require('async');
 var config = require('./config');
 var cache = require('express-redis-cache')({
-  host: config.redisHost, port: config.redisPort, expire: config.redisExpirationSeconds
+  host: config.redisHost, port: config.redisPort
 });
+var logger = require('intel');
+var idGenerator = require('shortid');
 
 var responseType = {'Content-Type': 'application/json; charset=utf-8'};
 module.exports = {
     invoices: {
         get: function (req, res, next) {
-            console.log(req.params);
+            var reqId = idGenerator.generate();
+            var sessionId = req.params.sessionId;
+            var fullReqId = reqId + sessionId;
+            logger.debug(req.params);
+            logger.debug("requestId: " + fullReqId);
             var companyId = parseInt(req.params.id);
-            config.invoiceService.get('invoices/' + companyId + "?startDate=" + req.params.startDate + "&endDate=" + req.params.endDate, function (err, serviceRequest, serviceResponse, obj) {
+            var startDate = req.params.startDate;
+            var endDate = req.params.endDate;
+
+            config.invoiceService.get('invoices/' + companyId + "?startDate=" + startDate + "&endDate=" + endDate, function (err, serviceRequest, serviceResponse, obj) {
                 res.writeHead(200, responseType);
                 res.write(serviceResponse);
+                res.write(JSON.stringify({configuration: config}));
                 return next();
             });
         }
     },
     invoice: {
         get: function (req, res, next) {
-            console.log(req.params);
+            var reqId = idGenerator.generate();
+            logger.debug(req.params);
             var invoiceId = parseInt(req.params.id);
             res.writeHead(200, responseType);
             res.end(JSON.stringify(invoiceId));
             return next();
         },
         edit: function (req, res, next) {
-            console.log(req.params);
+            var reqId = idGenerator.generate();
+            logger.debug(req.params);
             var invoiceId = parseInt(req.params.id);
             res.writeHead(200, responseType);
             res.end(JSON.stringify(invoiceId));
@@ -36,14 +48,18 @@ module.exports = {
     },
     company: {
         get: function (req, res, next) {
-            console.log(req.params);
+            var reqId = idGenerator.generate();
+            logger.debug('user create');
+            logger.debug(req.params);
             var companyId = parseInt(req.params.id);
             res.writeHead(200, responseType);
             res.end(JSON.stringify(companyId));
             return next();
         },
         edit: function (req, res, next) {
-            console.log(req.params);
+            var reqId = idGenerator.generate();
+            logger.debug('user edit');
+            logger.debug(req.params);
             var companyId = parseInt(req.params.id);
             res.writeHead(200, responseType);
             res.end(JSON.stringify(companyId));
@@ -53,49 +69,59 @@ module.exports = {
     },
     user: {
         get: function (req, res, next) {
-            console.log(req.params);
+            var reqId = idGenerator.generate();
+            logger.debug('user get');
+            logger.debug(req.params);
             var userId = parseInt(req.params.id);
             res.writeHead(200, responseType);
             res.end(JSON.stringify(userId));
             return next();
         },
         edit: function (req, res, next) {
-            console.log(req.params);
+            var reqId = idGenerator.generate();
+            logger.debug('user edit');
+            logger.debug(req.params);
             var userId = parseInt(req.params.id);
             res.writeHead(200, responseType);
             res.end(JSON.stringify(userId));
             return next();
         },
         create: function (req, res, next) {
-            console.log(req.params);
+            var reqId = idGenerator.generate();
+            logger.debug('user create');
+            logger.debug(req.params);
             return next();
         },
         login: function (req, res, next) {
-            console.log(req.params);
+            var reqId = idGenerator.generate();
+            logger.debug('user login');
+            logger.debug(req.params);
             return next();
         }
     },
     dashboard: {
         get: function (req, res, next) {
-            cache.get('dashboard', function (error, entries) {
-              if (error) {
-                cache.add('dashboard', JSON.stringify({cache: "ok"}), {type: 'json'}, function (error, added) {
+          var reqId = idGenerator.generate();
+          logger.debug('dashboard get');
+          logger.debug(req.params);
+            cache.get('dashboard2', function (error, entries) {
+              logger.debug("errorOnGet:" + error);
+              if (error || !entries || !entries.length) {
+
+                cache.add('dashboard2', JSON.stringify({cache: "ok"}), {type: 'json', expire: config.redisExpirationSeconds }, function (error, added) {
+                  logger.debug("errorOnAdd:" + error);
+                  logger.debug("added:" + added);
                   if (error) {
-                    res.send({
-                      cache: "not available, not saved"
-                    });
+                    res.send({hello: "not saved"});
                   } else {
-                    res.send({
-                      cache: "saved"
-                    });
+                    res.send({hello: "saved"});
                   }
                   return next();
                 });
+
               } else {
-                res.send({
-                  hello: "ok",
-                  requestParams: req.params,
-                });
+
+                res.send({hello: "ok", entryLength: entries.length});
                 return next();
               }
             });
