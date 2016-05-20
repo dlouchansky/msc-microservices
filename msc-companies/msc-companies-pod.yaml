@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: msc-companies-pod
+  labels:
+    name: msc-companies-pod
+spec:
+  containers:
+    -
+      name: msc-companies
+      image: dlouchansky/msc-companies
+      env:
+        -
+          name: "RABBIT_MQ_ADDRESS"
+          value: "rabbitmq-service"
+        -
+          name: "RABBIT_MQ_USER"
+          value: "mysql"
+        -
+          name: "RABBIT_MQ_PASSWORD"
+          value: "sample"
+        -
+          name: "SERVICE_PORT"
+          value: "8008"
+        -
+          name: "MYSQL_PASSWORD"
+          value: "mysql"
+        -
+          name: "MYSQL_USER"
+          value: "mysql"
+        -
+          name: "MYSQL_HOST"
+          value: "mysql-service"
+        -
+          name: "MYSQL_DB"
+          value: "sample"
+        -
+          name: "STATS_SERVICE"
+          value: "stats-service"
+
+      ports:
+        - containerPort: 8008

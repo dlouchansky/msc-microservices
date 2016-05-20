@@ -1,5 +1,6 @@
 package company.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 import java.net.URI;
@@ -12,7 +13,8 @@ import java.util.List;
 @Configuration
 public class StatsServiceConfig {
 
-    private URI statsServiceUrl = URI.create("http://localhost:8090/");
+    @Value("${STATS_SERVICE}")
+    private String statsServiceUrl;
 
     public String getUnpaidUrl(String companyIds) {
         return null;

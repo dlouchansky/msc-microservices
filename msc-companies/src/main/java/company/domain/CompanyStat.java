@@ -5,6 +5,7 @@ import java.util.Date;
 /**
  * Created by bekas on 04/05/16.
  */
+
 public class CompanyStat {
 
     private Long statId;

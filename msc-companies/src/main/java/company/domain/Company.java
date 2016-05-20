@@ -7,6 +7,7 @@ import java.util.Map;
 /**
  * Created by bekas on 04/05/16.
  */
+
 public class Company {
 
     private Long id;
