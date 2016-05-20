@@ -55,7 +55,7 @@ module.exports = {
 
             config.companyService.get('company/' + companyId, function (err, serviceRequest, serviceResponse, obj) {
                 if (err) {
-                  logger error("error on get company");
+                  logger.error("error on get company");
                   logger.error(error);
                 }
 

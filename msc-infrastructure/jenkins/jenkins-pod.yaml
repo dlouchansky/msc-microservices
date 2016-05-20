@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jenkins-pod
+  labels:
+    name: jenkins-pod
+spec:
+  containers:
+    -
+      name: jenkins
+      image: jenkins:latest
+      env:
+        -
+          name: "MYSQL_USER"
+          value: "mysql"
+        -
+          name: "MYSQL_PASSWORD"
+          value: "mysql"
+        -
+          name: "MYSQL_DATABASE"
+          value: "sample"
+        -
+          name: "MYSQL_ROOT_PASSWORD"
+          value: "supersecret"
+      ports:
+        -
+          port: 8080
+          containerPort: 49001

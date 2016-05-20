@@ -6,7 +6,8 @@ metadata:
   name: rabbitmq-pod
 spec:
   containers:
-    - image: rabbitmq
+    -
+      image: rabbitmq
       name: rabbitmq
       ports:
         - containerPort: 5672

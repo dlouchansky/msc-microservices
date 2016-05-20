@@ -7,7 +7,7 @@ sudo git clone https://github.com/kubernetes/kubernetes.git
 cd kubernetes/
 
 # set up component versions
-export KUBE_VERSION=1.1.8
+export KUBE_VERSION=1.2.4
 export FLANNEL_VERSION=0.5.0
 export ETCD_VERSION=2.2.0
 
@@ -27,7 +27,26 @@ ssh-keygen -t rsa
 # Your public key has been saved in /root/.ssh/id_rsa.pub.
 cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
 
+# set up logging
+export KUBE_LOGGING_DESTINATION=elasticsearch
+export KUBE_ENABLE_NODE_LOGGING=true
+
+
 # run
 KUBERNETES_PROVIDER=ubuntu ./kube-up.sh
 cd cluster/ubuntu
 KUBERNETES_PROVIDER=ubuntu ./deployAddons.sh
+
+# stop
+kubectl delete rc kubernetes-dashboard-v1.0.1 --namespace=kube-system
+kubectl delete rc kube-dns-v11 --namespace=kube-system
+KUBERNETES_PROVIDER=ubuntu ./kube-down.sh
+# if not stopping http://stackoverflow.com/questions/36978468/waiting-for-tearing-down-pods-when-kubernetes-turns-down
+
+
+
+
+sudo git clone https://github.com/kubernetes/heapster.git
+
+
+kubectl cluster-info

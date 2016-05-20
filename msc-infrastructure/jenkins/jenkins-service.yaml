@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-service
+  labels:
+    name: jenkins-service
+spec:
+  ports:
+
+    - port: 49001
+      nodePort: 49001
+  selector:
+    name: jenkins-pod
