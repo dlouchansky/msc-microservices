@@ -16,7 +16,7 @@ public class Company {
     private String email;
     private Integer vatNumber;
     private Map<Company, Integer> clientDiscounts;
-    private Map<StatType, List<CompanyStat>> companyStats = new HashMap<>();
+    private Map<StatType, List<CompanyStat>> companyStats = new HashMap<StatType, List<CompanyStat>>();
 
     public List<CompanyStat> getCompanyStats(StatType statType) {
         return companyStats.get(statType);

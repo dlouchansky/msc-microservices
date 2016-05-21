@@ -33,7 +33,7 @@ public class CompanyService {
     public List<Company> getCompaniesByIds(String companyIds) {
         List<String> parsedCompanyIds = Arrays.asList(companyIds.split("\\s*,\\s*"));
 
-        List<Long> numeric = new ArrayList<>();
+        List<Long> numeric = new ArrayList<Long>();
 
         for (String id : parsedCompanyIds) {
             numeric.add(Long.parseLong(id));
