@@ -42,10 +42,16 @@ spec:
               value: "8008"
             -
               name: "REDIS_HOST"
-              value: "redis-service"
+              valueFrom:
+                secretKeyRef:
+                  name: msc-api-web-redis
+                  key: redishost
             -
               name: "REDIS_PORT"
-              value: "6379"
+              valueFrom:
+                secretKeyRef:
+                  name: msc-api-web-redis
+                  key: redisport
             -
               name: "REDIS_EXPIRE_SEC"
               value: "60"

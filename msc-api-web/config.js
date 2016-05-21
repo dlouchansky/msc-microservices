@@ -27,7 +27,7 @@ module.exports = {
     }),
 
     portToListen: process.env.SERVICE_PORT,
-    redisHost: process.env.REDIS_HOST,
-    redisPort: process.env.REDIS_PORT,
+    redisHost: process.env.REDIS_HOST.trim(),
+    redisPort: process.env.REDIS_PORT.trim(),
     redisExpirationSeconds: process.env.REDIS_EXPIRE_SEC
 };
