@@ -1,0 +1,69 @@
+<html>
+<head>
+    <title>Fault tolerance</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <script src="js/jquery-1.12.4.js"></script>
+    <script src="js/jsonp.js"></script>
+    <script src="js/poll.js"></script>
+</head>
+<body>
+<p>Example of fault error handling on UI</p>
+
+<form class="invoiceForm" name="invoiceForm" method="post">
+    <h3>Invoice form</h3>
+
+    <div>
+        <label>Invoice number</label>
+        <input name="invoiceNumber" type="text"/>
+    </div>
+    <div>
+        <label>Period</label>
+        <select name="invoicePeriod">
+            <option value="none" selected>None</option>
+            <option value="week">Week</option>
+            <option value="month">Month</option>
+        </select>
+    </div>
+    <div>
+        <label>Template</label>
+        <select name="invoiceTemplate">
+            <option value="0" selected>Basic</option>
+        </select>
+    </div>
+
+    <hr/>
+
+    <div class="invoiceRow">
+        <h4>Item 1</h4>
+        <label>name</label>
+        <input name="invoiceRowName[]" type="text"/>
+        <label>Quantity</label>
+        <input name="invoiceRowQuantity[]" type="text"/>
+        <label>Price</label>
+        <input name="invoiceRowPrice[]" type="text"/>
+    </div>
+    <div class="invoiceRow">
+        <h4>Item 2</h4>
+        <label>name</label>
+        <input name="invoiceRowName[]" type="text"/>
+        <label>Quantity</label>
+        <input name="invoiceRowQuantity[]" type="text"/>
+        <label>Price</label>
+        <input name="invoiceRowPrice[]" type="text"/>
+    </div>
+    <div class="invoiceRow">
+        <h4>Item 3</h4>
+        <label>name</label>
+        <input name="invoiceRowName[]" type="text"/>
+        <label>Quantity</label>
+        <input name="invoiceRowQuantity[]" type="text"/>
+        <label>Price</label>
+        <input name="invoiceRowPrice[]" type="text"/>
+    </div>
+
+    <div class="pause label label-info" style="display:none;">saving...</div>
+    <div class="serverError label label-danger" style="display:none;">server error, waiting for service to work...</div>
+</form>
+<button class="save">Save</button>
+</body>
+</html>

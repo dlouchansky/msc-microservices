@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: msc-api-web-pod
+  labels:
+    name: msc-api-web-pod
+spec:
+  containers:
+    - name: msc-api-web
+      image: dlouchansky/msc-api-web
+      env:
+        -
+          name: "STATS_SERVICE_ADDRESS"
+          value: "stats-service"
+        -
+          name: "COMPANY_SERVICE_ADDRESS"
+          value: "company-service"
+        -
+          name: "USER_SERVICE_ADDRESS"
+          value: "user-service"
+        -
+          name: "AUTH_SERVICE_ADDRESS"
+          value: "auth-service"
+        -
+          name: "DOCUMENT_SERVICE_ADDRESS"
+          value: "document-service"
+        -
+          name: "SERVICE_PORT"
+          value: "8008"
+        -
+          name: "REDIS_HOST"
+          valueFrom:
+            secretKeyRef:
+              name: msc-api-web-redis
+              key: redishost
+        -
+          name: "REDIS_PORT"
+          valueFrom:
+            secretKeyRef:
+              name: msc-api-web-redis
+              key: redisport
+        -
+          name: "REDIS_EXPIRE_SEC"
+          value: "60"
+      resources:
+        limits:
+          cpu: 300m
+          memory: 200Mi
+        requests:
+          cpu: 200m
+          memory: 100Mi
+      ports:
+        - containerPort: 8008
