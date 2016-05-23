@@ -2,3 +2,7 @@
 *.idea/
 *target/
 *.vagrant/
+
+msc-web/js/jsonp.js
+
+msc-web/js/jquery-1.12.4.js
