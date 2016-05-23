@@ -3,7 +3,7 @@ kind: ReplicationController
 metadata:
   name: msc-companies-controller
 spec:
-  replicas: 2
+  replicas: 1
   # selector identifies the set of Pods that this
   # replication controller is responsible for managing
   selector:
@@ -27,10 +27,10 @@ spec:
               value: "rabbitmq-service"
             -
               name: "RABBIT_MQ_USER"
-              value: "mysql"
+              value: "rabbitmq"
             -
               name: "RABBIT_MQ_PASSWORD"
-              value: "sample"
+              value: "rabbitmq"
             -
               name: "SERVICE_PORT"
               value: "8008"

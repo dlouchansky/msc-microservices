@@ -43,6 +43,12 @@ public class CompanyControllerV1 {
         return companyService.get(companyId);
     }
 
+    @RequestMapping(path = "/hystrixTest/{requestCount}/{delayInMsec}", method = RequestMethod.GET)
+    public Long testHystrix(@PathVariable(value = "requestCount") Long requestCount,
+                            @PathVariable(value = "delayInMsec") Long delayInMsec) throws InterruptedException {
+        return companyService.testHystrix();
+    }
+
     @RequestMapping(path = "/companies/{companyIds}", method = RequestMethod.GET)
     public List<Company> getCompanies(@PathVariable(value = "companyIds") String companyIds
     ) {

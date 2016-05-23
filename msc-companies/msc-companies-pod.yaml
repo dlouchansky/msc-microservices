@@ -15,10 +15,10 @@ spec:
           value: "rabbitmq-service"
         -
           name: "RABBIT_MQ_USER"
-          value: "mysql"
+          value: "rabbitmq"
         -
           name: "RABBIT_MQ_PASSWORD"
-          value: "sample"
+          value: "rabbitmq"
         -
           name: "SERVICE_PORT"
           value: "8008"

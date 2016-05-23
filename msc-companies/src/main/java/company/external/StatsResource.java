@@ -1,10 +1,13 @@
 package company.external;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import company.config.StatsServiceConfig;
 import company.domain.CompanyStat;
 import company.domain.StatPeriod;
+import company.domain.StatType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -21,19 +24,24 @@ public class StatsResource {
     @Autowired
     private StatsServiceConfig statsServiceConfig;
 
-    //@HystrixCommand(fallbackMethod = "statsServiceOffline")
-    public Map<Long, CompanyStat> getUnpaidStats(List<Long> companyIds) {
-        //RestTemplate restTemplate = new RestTemplate();
-        //return restTemplate.getForObject(statsServiceUrl + "stat/" + companyIds, Map<Long, CompanyStat>.class);
-        return null;
+    @HystrixCommand(fallbackMethod = "statsServiceOffline")
+    public CompanyStat getUnpaidStats(List<Long> companyIds) {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(statsServiceConfig.getUnpaidUrl("") + companyIds, CompanyStat.class);
     }
 
-    public Map<Long, List<CompanyStat>> getIncomeStats(Date start, Date end, List<Long> companyIds, StatPeriod statPeriod) {
-        return null;
+    CompanyStat statsServiceOffline(List<Long> companyIds) {
+        return new CompanyStat(0L, new Date(), 0, StatType.INCOME);
     }
 
 
-    Map<Long, CompanyStat> statsServiceOffline(List<Long> companyIds) {
-        return new HashMap<Long, CompanyStat>();
+    @HystrixCommand(fallbackMethod = "hystrixServiceOffline")
+    public String hystrixCheck() {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject("http://192.168.50.4:30777/hystrixTest", String.class);
+    }
+
+    String hystrixServiceOffline() {
+        return "error";
     }
 }

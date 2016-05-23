@@ -17,10 +17,10 @@ public class StatsServiceConfig {
     private String statsServiceUrl;
 
     public String getUnpaidUrl(String companyIds) {
-        return null;
+        return statsServiceUrl + "/unpaid";
     }
 
     public String getIncomeUrl(String companyIds) {
-        return null;
+        return statsServiceUrl + "/income";
     }
 }
