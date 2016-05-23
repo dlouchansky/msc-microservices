@@ -21,8 +21,26 @@ BasePath: /
 
 ### Tags
 
+* hal-json-mvc-endpoint: Hal Json Mvc Endpoint
+* hal-json-mvc-endpoint
+* environment-manager-mvc-endpoint: Environment Manager Mvc Endpoint
+* environment-manager-mvc-endpoint
+* endpoint-mvc-adapter: Endpoint Mvc Adapter
+* endpoint-mvc-adapter
+* generic-postable-mvc-endpoint: Generic Postable Mvc Endpoint
+* generic-postable-mvc-endpoint
 * company-controller-v-1: Company Controller V 1
 * company-controller-v-1
+* restart-mvc-endpoint: Restart Mvc Endpoint
+* restart-mvc-endpoint
+* hystrix-stream-endpoint: Hystrix Stream Endpoint
+* hystrix-stream-endpoint
+* metrics-mvc-endpoint: Metrics Mvc Endpoint
+* metrics-mvc-endpoint
+* environment-mvc-endpoint: Environment Mvc Endpoint
+* environment-mvc-endpoint
+* health-mvc-endpoint: Health Mvc Endpoint
+* health-mvc-endpoint
 * basic-error-controller: Basic Error Controller
 * basic-error-controller
 

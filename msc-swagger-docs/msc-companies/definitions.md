@@ -22,10 +22,24 @@
 |viewName||false|string||
 
 
+### ResourceSupport
+|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|
+|links||false|Link array||
+
+
 ### View
 |Name|Description|Required|Schema|Default|
 |----|----|----|----|----|
 |contentType||false|string||
+
+
+### Link
+|Name|Description|Required|Schema|Default|
+|----|----|----|----|----|
+|href||false|string||
+|rel||false|string||
+|templated||false|boolean||
 
 
 ### Map«Company,int»
