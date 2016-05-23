@@ -1,0 +1,17 @@
+
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    name: hystrix-dash-pod
+  name: hystrix-dash-pod
+spec:
+  containers:
+    -
+      image: arthurtsang/docker-hystrix-dashboard
+      name: hystrix-dash
+      ports:
+        -
+          containerPort: 8080
+        -
+          containerPort: 38080
