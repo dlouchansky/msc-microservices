@@ -10,7 +10,7 @@ import java.util.List;
 public interface InvoiceRepository extends MongoRepository<Invoice, String> {
 
 
-    public List<Invoice> findByIssuer(Long issuer, Sort sort, Pageable pageable);
-    public List<Invoice> findByIssuerCreateDate(Long issuer, Range range);
+    List<Invoice> findByIssuer(Long issuer, Sort sort, Pageable pageable);
+    List<Invoice> findByIssuerCreateDate(Long issuer, Range range);
 
 }

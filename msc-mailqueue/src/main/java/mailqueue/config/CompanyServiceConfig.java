@@ -1,5 +1,6 @@
 package mailqueue.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 import java.net.URI;
@@ -10,7 +11,8 @@ import java.net.URI;
 @Configuration
 public class CompanyServiceConfig {
 
-    private URI companyServiceUrl = URI.create("http://localhost:8091/");
+    @Value("${COMPANY_SERVICE_ADDRESS}")
+    private String companyServiceUrl;
 
     public String getCompanyUrl(Long companyId) {
         return companyServiceUrl + "/company" + companyId;

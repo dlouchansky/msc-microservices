@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: msc-invoices-pod
+  labels:
+    name: msc-invoices-pod
+spec:
+  containers:
+    -
+      name: msc-invoices
+      image: dlouchansky/msc-invoices
+      env:
+        -
+          name: "SERVICE_PORT"
+          value: "8008"
+        -
+          name: "MYSQL_PASSWORD"
+          value: "mysql"
+        -
+          name: "MYSQL_USER"
+          value: "mysql"
+        -
+          name: "MYSQL_HOST"
+          value: "mysql-service"
+        -
+          name: "MONGO_USER"
+          value: "mongo"
+        -
+          name: "MONGO_PASSWORD"
+          value: "mongo"
+        -
+          name: "MONGO_HOST"
+          value: "mongo-service"
+        -
+          name: "MONGO_PORT"
+          value: "27017"
+      ports:
+        -
+          containerPort: 8008

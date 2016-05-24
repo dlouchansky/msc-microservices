@@ -1,6 +1,7 @@
 package invoice.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 
 import java.util.Date;
 import java.util.List;
@@ -22,7 +23,10 @@ public class Invoice {
     private Integer tax;
     private Date createDate;
     private Long creator;
+
+    @Transient
     private InvoiceCompany issuerCompany;
+    @Transient
     private InvoiceCompany payerCompany;
 
     public Invoice() {

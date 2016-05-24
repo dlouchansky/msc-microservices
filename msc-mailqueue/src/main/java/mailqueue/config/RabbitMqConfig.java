@@ -8,6 +8,7 @@ import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.*;
 
 /**
  * Created by bekas on 04/05/16.
@@ -16,9 +17,12 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMqConfig
 {
 
-    public static final String RABBIT_MQ_ADDRESS = "192.168.22.10";
-    public static final String RABBIT_MQ_USER = "user";
-    public static final String RABBIT_MQ_PASSWORD = "password";
+    @Value("${RABBIT_MQ_ADDRESS}")
+    public static  String RABBIT_MQ_ADDRESS;
+    @Value("${RABBIT_MQ_USER}")
+    public static  String RABBIT_MQ_USER;
+    @Value("${RABBIT_MQ_PASSWORD}")
+    public static  String RABBIT_MQ_PASSWORD;
 
     @Bean
     public ConnectionFactory connectionFactory()
